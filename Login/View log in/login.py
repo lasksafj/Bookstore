@@ -10,8 +10,6 @@ class login(tk.Tk):
         self.resizable(False, False)
         # self.rowconfigure(0, weight=1)
         # self.columnconfigure(0, weight=1)
-        # sg = ttk.Sizegrip(self)
-        # sg.grid(row=2, column=5, sticky=tk.SE)
 
     def input_frame(self):
         # Username
@@ -32,18 +30,9 @@ class login(tk.Tk):
         login_button = ttk.Button(self, text="Login", command=lambda: self.showLogin(username_entry, password_entry))
         login_button.grid(row=2, column=1, columnspan=5, sticky=tk.E, padx=10, pady=10)
 
-        # # Back
-        # login_button = ttk.Button(self, text="Back", command=self.showLogin)
-        # login_button.grid(row=2, column=1, sticky=tk.E, padx=10, pady=10)
-
     def showLogin(self, username_entry, password_entry):
         username = username_entry.get()
         password = password_entry.get()
-
-        # showUsername = tk.Label(self, text=self.username)
-        # showUsername.place(x=100, y=150)
-        # showPassword = tk.Label(self, text=self.password)
-        # showPassword.place(x=100, y=180)
 
         if username == "" or password == "":
             messagebox.showinfo("", "Blank Not Allowed")
