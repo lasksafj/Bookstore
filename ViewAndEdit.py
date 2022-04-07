@@ -7,6 +7,8 @@ window.title("Bookstore")
 window.geometry("600x700")
 window.iconphoto(True, PhotoImage(file="logo.png"))
 
+#class EditBook():
+#def tableBook():
 table = ttk.Treeview(window)
 
 # define our columns
@@ -50,6 +52,21 @@ for i in range(0,100):
 # Show
 table.grid(row=8, pady=20)
 
+#def rightClick():
+rightClick = Menu(window, tearoff=False)
+
+def edit():
+    pass
+def delete():
+    pass
+def rightClickPopUp(e):
+    rightClick.tk_popup(e.x_window, e.y_window)
+
+rightClick.add_command(label="Edit", command=edit)
+rightClick.add_command(label="Delete", command=delete)
+
+window.bind("<Button-3>", rightClickPopUp)
+#def scrollbarTable():
 # # Table Frame
 # table_frame = Frame(window)
 # table_frame.pack(pady=20)
@@ -66,6 +83,7 @@ table.grid(row=8, pady=20)
 # # Configure the Scrollbar
 # table_scroll.config(command=table.yview)
 
+#def showInfoPage():
 # Creating a Label Wiglet
 nameOfPage = Label(window, text="BOOKS")
 blank = Label(window, text="")
@@ -78,7 +96,7 @@ blank.grid(row=2, column=0)
 blank.grid(row=4, column=0)
 blank.grid(row=5, column=0)
 
-
+#def changePageButton():
 # Change Page button
 bookButton = Button(window, text="Books", padx=10, pady=5)
 customerButton = Button(window, text="Customer", padx=10, pady=5)
@@ -91,16 +109,21 @@ customerButton.grid(row=3, column=0, sticky="e", padx=155)
 employeeButton.grid(row=3, column=0, sticky="e", padx=70)
 authorButton.grid(row=3, column=0, sticky="e")
 
+#def searchBox():
 # Search box
 searchBox = Entry(window, width=50,fg="blue", borderwidth=3)
 searchBox.grid(row=6, column=0, sticky="e", ipadx=10, padx=120)
 
+# Insert comment for entry
+searchBox.insert(6, "Search for Title")
+
+#def button():
 # Create button
 addButton = Button(window, text="Add New Book", padx=10, pady=5)
 cancelButton = Button(window, text="Cancel", pady=5)
 saveButton = Button(window, text="Save", padx=10, pady=5)
 
-# Shhow button onto the screen
+# Show button onto the screen
 addButton.grid(row=6, column=0, sticky="e")
 cancelButton.grid(row=15, column=0, sticky="e", ipadx=10, padx=60)
 saveButton.grid(row=15, column=0, sticky="e")
