@@ -1,6 +1,5 @@
 from tkinter import *
 from PIL import Image, ImageTk
-# Employee, author
 
 def delete():
    lastName.delete(0, 'end')
@@ -18,7 +17,7 @@ def delete():
 addForm = Tk()
 addForm.resizable(0, 0)
 addForm.title("Add New Employee")
-addForm.geometry("450x550")
+addForm.geometry("420x480")
 addForm.iconphoto(True, PhotoImage(file="logo.png"))
 
 lastNameLabel = Label(addForm, text="Last Name").grid(row=1,column=0,padx=20,pady=5)
@@ -46,10 +45,10 @@ position = Entry(addForm, width=40)
 
 
 submitButton = Button(addForm, text="Submit")
-submitButton.grid(row=12,column=0,columnspan=2,padx=10,pady=20)
+submitButton.grid(row=12,column=0,columnspan=3,padx=10,pady=20)
 
 clearButton = Button(addForm, text="Clear", command=delete)
-clearButton.grid(row=13,column=0,columnspan=2,pady=5)
+clearButton.grid(row=13,column=0,columnspan=3,pady=5)
 
 lastName.grid(row=1,column=1)
 firstName.grid(row=2,column=1)
@@ -64,4 +63,4 @@ dateOfBirth.grid(row=10,column=1)
 position.grid(row=11,column=1)
 
 
-#addForm.mainloop()
+addForm.mainloop()
