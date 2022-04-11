@@ -98,28 +98,29 @@ def delete_db(con, table_name:str, id_list:list) -> None:
 # --------------------------------------------------
 con = create_connection("bookstore.db")
 
-# insert = ['1111harr',
-#         'Harry Potter','JK Rowling',
+# insert = ['2222harr',
+#         'Harry Potter 7','JK Rowling',
 #         'nxb',2000,2,
-#         100,300,'new','available',
+#         200,500,'new','available',
 #         'fiction', '1-1-2000', 'n/a', 'n/a']
+#
 # insert_db(con, "books", insert)
 #
 # search = {
-#     'cost': 100
+#     'cost': 100,
 # }
 # print(search_db(con, 'books', search))
 #
 
 # update = {
-#     "cost": 150,
-#     'retail': 500
+#     "cost": 200,
+#     'retail': 700,
 # }
 #
 # update_db(con, "books", "1111harr", update)
 #
 #
-id_list = ["1156lord", "1334lord"]
-delete_db(con, "books", id_list)
+# id_list = ["1156lord", "1334lord"]
+# delete_db(con, "books", id_list)
 
 con.close()

@@ -1,14 +1,17 @@
 import tkinter as tk
 from tkinter import ttk
-from CreateAccount import CreateAccount
+# from CreateAccount import CreateAccount
 
 
 class MainMenu(tk.Frame):
-    def __init__(self, master):
+    def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
-        self.master = master
-        self.master.title("Bookstore")
-        self.master.state("zoomed")
+        # self.master = master
+        # self.master.title("Bookstore")
+
+        self.controller = controller
+        # self.controller.state("zoomed")
+        self.render()
 
     def render(self):
         # configure the grid of the frame
@@ -23,10 +26,10 @@ class MainMenu(tk.Frame):
         ttk.Sizegrip(self).grid(row=3, column=2, sticky=tk.SE)
 
         # grid the frame
-        self.grid(row=0, column=0)
+        # self.grid(row=0, column=0)
 
         # fill the window with the frame
-        self.pack(expand=1, fill=tk.BOTH)
+        # self.pack(expand=1, fill=tk.BOTH)
 
         # creating widgets
         search_button = tk.Button(self, text="Search and Order", font=("Arial", 30),
@@ -51,10 +54,11 @@ class MainMenu(tk.Frame):
         pass
 
     def create_account_button(self):
-        self.pack_forget()
-        self.grid_forget()
-        frame = CreateAccount(self.master, self)
-        frame.render()
+        # self.pack_forget()
+        # self.grid_forget()
+        # frame = CreateAccount(self.master, self)
+        # frame.render()
+        self.controller.show_frame('CreateAccount')
 
     def order_return_button(self):
         pass
