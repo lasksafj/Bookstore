@@ -3,12 +3,14 @@ import tkinter as tk
 
 
 class CreateAccount(tk.Frame):
-    def __init__(self, master, previous_frame):
+    def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
-        self.previous_frame = previous_frame
-        self.master = master
-        self.master.title("Create Account")
-        self.master.state("zoomed")
+        # self.previous_frame = previous_frame
+        # self.master = master
+        self.controller = controller
+        self.controller.title("Create Account")
+        # self.controller.state("zoomed")
+        self.render()
 
     def render(self):
         # configure the grid of the frame
@@ -28,10 +30,10 @@ class CreateAccount(tk.Frame):
         ttk.Sizegrip(self).grid(row=3, column=2, sticky=tk.SE)
 
         # grid the frame
-        self.grid(row=0, column=0)
+        # self.grid(row=0, column=0)
 
         # fill the window with the frame
-        self.pack(expand=1, fill=tk.BOTH)
+        # self.pack(expand=1, fill=tk.BOTH)
 
         page_label = ttk.Label(self, text="Create Account", font=("Arial", 30))
         page_label.grid(row=0, columnspan=2, padx=10, pady=10)
@@ -118,9 +120,10 @@ class CreateAccount(tk.Frame):
         check.deselect()
 
     def back_button(self):
-        self.pack_forget()
-        self.grid_forget()
-        self.previous_frame.render()
+        # self.pack_forget()
+        # self.grid_forget()
+        # self.previous_frame.render()
+        self.controller.show_frame('MainMenu')
 
 
 if __name__ == "__main__":
