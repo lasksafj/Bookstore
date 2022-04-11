@@ -15,8 +15,6 @@ def create_connection(db_file):
 
     return con
 
-con = create_connection("example.db")
-
 def close_connection(con):
     """ close the connection to the database
     """
@@ -37,13 +35,6 @@ def insert_db(con, table_name:str, value:list) -> None:
         con.commit()
     except Exception as e:
         print(str(e))
-
-insert = ['1156lord',
-        'Lord of the rings','J. R. R. Tolkien',
-        'nxb',2000,2,
-        100,300,'new','available',
-        'fiction']
-insert_db(con, "books", insert)
 
 def search_db(con, table_name:str, search:dict) -> list:
     """ search data in the database
@@ -67,12 +58,6 @@ def search_db(con, table_name:str, search:dict) -> list:
         print(str(e))
     return result
 
-search = {
-    'title': 'Harry Potter',
-    'author': 'JK Rowling',
-}
-print(search_db(con, 'books', search))
-
 def update_db(con, table_name:str, id:str, update:dict) -> None:
     """ update data in the database
     :con: connection
@@ -95,13 +80,6 @@ def update_db(con, table_name:str, id:str, update:dict) -> None:
     except Exception as e:
         print(str(e))
 
-# update = {
-#     "year": 2010,
-#     "price": 200
-# }
-#
-# update_db(con, "books", "1234harr", update)
-
 def delete_db(con, table_name:str, id_list:list) -> None:
     """ delete data in the database
     :con: connection
@@ -117,6 +95,30 @@ def delete_db(con, table_name:str, id_list:list) -> None:
     except Exception as e:
         print(str(e))
 
+# --------------------------------------------------
+con = create_connection("bookstore.db")
+
+# insert = ['1111harr',
+#         'Harry Potter','JK Rowling',
+#         'nxb',2000,2,
+#         100,300,'new','available',
+#         'fiction', '1-1-2000', 'n/a', 'n/a']
+# insert_db(con, "books", insert)
+#
+# search = {
+#     'cost': 100
+# }
+# print(search_db(con, 'books', search))
+#
+
+# update = {
+#     "cost": 150,
+#     'retail': 500
+# }
+#
+# update_db(con, "books", "1111harr", update)
+#
+#
 id_list = ["1156lord", "1334lord"]
 delete_db(con, "books", id_list)
 
