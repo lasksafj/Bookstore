@@ -9,6 +9,8 @@ class MainMenu(tk.Frame):
         self.master = master
         self.master.title("Bookstore")
         self.master.state("zoomed")
+        self.master.resizable(True, True)
+
 
     def render(self):
         # configure the grid of the frame
