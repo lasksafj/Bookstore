@@ -15,6 +15,7 @@ def delete():
    dateOfBirth.delete(0, 'end')
    position.delete(0, 'end')
 
+# Create Tk instance
 addEmployeeForm = Tk()
 addEmployeeForm.resizable(0, 0)  # Lock screen
 addEmployeeForm.title("Add New Employee")
@@ -46,7 +47,7 @@ positionLabel = Label(addEmployeeForm, text="Position").grid(row=11,column=0,pad
 position = Entry(addEmployeeForm, width=40)
 
 # Create buttons
-cancelButton = Button(addEmployeeForm, text="Cancel")
+cancelButton = Button(addEmployeeForm, text="Cancel", command=addEmployeeForm.destroy)
 cancelButton.grid(row=12,column=0,columnspan=2,padx=10,pady=5,ipadx=10,sticky="W")
 clearButton = Button(addEmployeeForm, text="Clear", command=delete)
 clearButton.grid(row=12,column=1,columnspan=2,pady=5,ipadx=10,sticky="W")
@@ -65,5 +66,14 @@ phone.grid(row=8,column=1)
 email.grid(row=9,column=1)
 dateOfBirth.grid(row=10,column=1)
 position.grid(row=11,column=1)
+
+# Go to next entry box if you press "Enter"
+def go_to_next_entry(event, entry_list, this_index):
+    next_index = (this_index + 1) % len(entry_list)
+    entry_list[next_index].focus_set()
+
+entries = [child for child in addEmployeeForm.winfo_children() if isinstance(child, Entry)]
+for idx, entry in enumerate(entries):
+    entry.bind('<Return>', lambda e, idx=idx: go_to_next_entry(e, entries, idx))
 
 addEmployeeForm.mainloop()

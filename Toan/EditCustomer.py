@@ -3,10 +3,10 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from tkinter import ttk
 
-class EditBook(tk.Tk):
+class EditCustomer(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Edit Book")
+        self.title("Edit Customer")
         self.state("zoomed")
         self.res = 0;
         self.iconphoto(True, PhotoImage(file="logo.png"))
@@ -15,41 +15,23 @@ class EditBook(tk.Tk):
         table = ttk.Treeview(self)
 
         # define our columns
-        table["columns"] = ("BOOK ID", "TITLE", "AUTHOR", "PUBLISHER", "PUBLICATION DATE", "EDITION", "COST", "SUG RETAIL PRICE", "CONDITION", "SOLD", "DATE IN", "DATE OUT")
+        table["columns"] = ("CUSTOMER ID", "LAST NAME", "FIRST NAME", "PHONE NUMBER", "ADDRESS")
 
         # Format column
         table.column("#0", width=0, minwidth=0)
-        table.column("BOOK ID", anchor=CENTER, width=120)
-        table.column("TITLE", anchor=W, width=120)
-        table.column("AUTHOR", anchor=W, width=120)
-        table.column("PUBLISHER", anchor=W, width=120)
-        table.column("PUBLICATION DATE", anchor=W, width=120)
-        table.column("EDITION", anchor=W, width=120)
-        table.column("COST", anchor=E, width=120)
-        table.column("SUG RETAIL PRICE", anchor=E, width=120)
-        table.column("CONDITION", anchor=W, width=120)
-        table.column("SOLD", anchor=W, width=120)
-        table.column("DATE IN", anchor=W, width=120)
-        table.column("DATE OUT", anchor=W, width=120)
+        table.column("CUSTOMER ID", anchor=CENTER, width=120)
+        table.column("LAST NAME", anchor=W, width=120)
+        table.column("FIRST NAME", anchor=W, width=120)
+        table.column("PHONE NUMBER", anchor=W, width=120)
+        table.column("ADDRESS", anchor=W, width=120)
 
         # Create heading
         table.heading("#0", text="", anchor=CENTER)
-        table.heading("BOOK ID", text="BOOK ID", anchor=CENTER)
-        table.heading("TITLE", text="TITLE", anchor=CENTER)
-        table.heading("AUTHOR", text="AUTHOR", anchor=CENTER)
-        table.heading("PUBLISHER", text="PUBLISHER", anchor=CENTER)
-        table.heading("PUBLICATION DATE", text="PUBLICATION DATE", anchor=CENTER)
-        table.heading("EDITION", text="EDITION", anchor=CENTER)
-        table.heading("COST", text="COST", anchor=CENTER)
-        table.heading("SUG RETAIL PRICE", text="SUG RETAIL PRICE", anchor=CENTER)
-        table.heading("CONDITION", text="CONDITION", anchor=CENTER)
-        table.heading("SOLD", text="SOLD", anchor=CENTER)
-        table.heading("DATE IN", text="DATE IN", anchor=CENTER)
-        table.heading("DATE OUT", text="DATE OUT", anchor=CENTER)
-
-        # Add data test
-        for i in range(0,100):
-            table.insert(parent="",index="end", iid=i, text="", values=("ABCD1234", "asdrhgaedtrhg", "sarfgaer"))
+        table.heading("CUSTOMER ID", text="CUSTOMER ID", anchor=CENTER)
+        table.heading("LAST NAME", text="LAST NAME", anchor=CENTER)
+        table.heading("FIRST NAME", text="FIRST NAME", anchor=CENTER)
+        table.heading("PHONE NUMBER", text="PHONE NUMBER", anchor=CENTER)
+        table.heading("ADDRESS", text="ADDRESS", anchor=CENTER)
 
         # Show
         table.grid(row=8, pady=20)
@@ -73,7 +55,7 @@ class EditBook(tk.Tk):
 
     def buttonSwitchPage(self):
         # Creating a Label Wiglet
-        nameOfPage = Label(self, text="BOOKS", font=("Arial", 20))
+        nameOfPage = Label(self, text="CUSTOMER", font=("Arial", 20))
         blank = Label(self, text="")
 
 
@@ -104,7 +86,7 @@ class EditBook(tk.Tk):
 
     def showButton(self):
         # Create button
-        addButton = Button(self, text="Add New Book", padx=10, pady=5)
+        addButton = Button(self, text="Add New Customer", padx=10, pady=5)
         cancelButton = Button(self, text="Cancel", pady=5)
         saveButton = Button(self, text="Save", padx=10, pady=5)
 
@@ -138,6 +120,6 @@ class EditBook(tk.Tk):
 
 
 if __name__ == "__main__":
-    app = EditBook()
+    app = EditCustomer()
     app.render()
     app.mainloop()
