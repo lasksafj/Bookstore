@@ -10,7 +10,7 @@ def create_connection(db_file):
     con = None
     try:
         con = sqlite3.connect(db_file)
-    except Error as e:
+    except Exception as e:
         print(e)
 
     return con
@@ -103,7 +103,11 @@ con = create_connection("bookstore.db")
 #         'nxb',2000,2,
 #         200,500,'new','available',
 #         'fiction', '1-1-2000', 'n/a', 'n/a']
+<<<<<<< Updated upstream
 #
+=======
+        
+>>>>>>> Stashed changes
 # insert_db(con, "books", insert)
 #
 # search = {
