@@ -27,7 +27,7 @@ class SampleApp(tk.Tk):
             frame = F(master=container, controller=self)
             self.frames[page_name] = frame
 
-            frame.grid(row=0, column=0, sticky='nswe')
+            frame.grid(row=0, column=0, sticky='nsew')
 
         self.show_frame("Login")
 

@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import sqlite3
 # from MainMenu import MainMenu
 
 
@@ -20,6 +21,7 @@ class Login(tk.Frame):
         self.controller.show_frame('MainMenu')
 
     def input_frame(self):
+
         # configure the grid of the frame
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=2)
@@ -56,16 +58,18 @@ class Login(tk.Frame):
         login_button.grid(row=2, column=1, columnspan=5, padx=10, pady=10)
 
         # Enter bind
-        self.master.bind('<Return>', lambda event: self.show_login(username_entry, password_entry))
+        self.controller.bind('<Return>', lambda event: self.show_login(username_entry, password_entry))
 
     def show_login(self, username_entry, password_entry):
         username = username_entry.get()
         password = password_entry.get()
-
+        con =  create_connection("bookstore.db")
+        search = [username, password]
+        data_check = search_db(con, "employee", search)
         if username == "" or password == "":
             messagebox.showinfo("", "Blank Not Allowed")
 
-        elif username == "annieh195" and password == "190500":
+        elif username == data_check[0] and password == data_check[1]:
             self.login_success()
         else:
             messagebox.showinfo("", "Incorrect username or password")
