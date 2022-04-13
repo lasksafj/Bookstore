@@ -5,11 +5,8 @@ import tkinter as tk
 class CreateAccount(tk.Frame):
     def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
-        # self.previous_frame = previous_frame
-        # self.master = master
         self.controller = controller
-        self.controller.title("Create Account")
-        # self.controller.state("zoomed")
+
         self.render()
 
     def render(self):

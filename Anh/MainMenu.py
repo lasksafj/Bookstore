@@ -8,14 +8,6 @@ class MainMenu(tk.Frame):
         tk.Frame.__init__(self, master)
         self.controller = controller
         self.controller.title("Bookstore")
-        self.controller.state("zoomed")
-        self.controller.resizable(True, True)
-
-        # self.master = master
-        # self.master.title("Bookstore")
-
-        self.controller = controller
-        # self.controller.state("zoomed")
         self.render()
 
     def render(self):
