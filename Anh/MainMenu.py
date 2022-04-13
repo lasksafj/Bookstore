@@ -6,11 +6,8 @@ from tkinter import ttk
 class MainMenu(tk.Frame):
     def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
-        # self.master = master
-        # self.master.title("Bookstore")
-
         self.controller = controller
-        # self.controller.state("zoomed")
+        self.controller.title("Bookstore")
         self.render()
 
     def render(self):
