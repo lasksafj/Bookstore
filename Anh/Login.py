@@ -56,7 +56,7 @@ class Login(tk.Frame):
         login_button.grid(row=2, column=1, columnspan=5, padx=10, pady=10)
 
         # Enter bind
-        self.master.bind('<Return>', lambda event: self.show_login(username_entry, password_entry))
+        self.controller.bind('<Return>', lambda event: self.show_login(username_entry, password_entry))
 
     def show_login(self, username_entry, password_entry):
         username = username_entry.get()
