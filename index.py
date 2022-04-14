@@ -2,21 +2,19 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from app import SampleApp
+import dbsql
 
 class Start(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Bookstore Login")
         self.resizable(False, False)
+        self.con = dbsql.create_connection("bookstore.db")
         self.render()
 
-    def login_success(self, username, password):
-        login_info = {
-            'username': username,
-            'password': password
-        }
+    def login_success(self, data_check):
         self.destroy()
-        app = SampleApp(login_info=login_info)
+        app = SampleApp(login_info=data_check)
 
     def input_frame(self):
         # configure the grid of the frame
@@ -54,14 +52,18 @@ class Start(tk.Tk):
     def show_login(self, username_entry, password_entry):
         username = username_entry.get()
         password = password_entry.get()
-
         if username == "" or password == "":
             messagebox.showinfo("", "Blank Not Allowed")
-
-        elif username == "annieh195" and password == "190500":
-            self.login_success(username, password)
         else:
-            messagebox.showinfo("", "Incorrect username or password")
+            search = {
+                'username': username,
+                'password': password
+            }
+            data_check = dbsql.search_db(self.con, 'employee', search)
+            if not data_check:
+                messagebox.showinfo("", "Incorrect username or password")
+            else:
+                self.login_success(data_check[0])
 
     def render(self):
         self.input_frame()
