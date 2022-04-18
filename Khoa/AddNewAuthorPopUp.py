@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
+import dbsql
 
 class AddNewAuthor(tk.Tk):
     def __init__(self):
@@ -9,6 +10,7 @@ class AddNewAuthor(tk.Tk):
         self.title("Add New Author")
         self.geometry("420x480")
         self.iconphoto(True, PhotoImage(file="logo.png"))
+
 
     def showLabel(self):
         # Create labels
@@ -29,6 +31,7 @@ class AddNewAuthor(tk.Tk):
 
     def showTextbox(self):
         # Create text boxes
+        #global IDNumber,lastName,firstName,yearOfBirth,yearOfDeath,description
         IDNumber = Entry(self, width=40)
         lastName = Entry(self, width=40)
         firstName = Entry(self, width=40)
@@ -44,13 +47,22 @@ class AddNewAuthor(tk.Tk):
         yearOfDeath.grid(row=5,column=1)
         description.grid(row=6,column=1)
     
+    def delete(self):
+        IDNumber.delete(0, END)
+        lastName.delete(0, END)
+        firstName.delete(0, END)
+        yearOfBirth.delete(0, END)
+        yearOfDeath.delete(0, END)
+        description.delete('1.0', END)
+
     def showButton(self):
+        insert = [IDNumber,lastName,firstName,yearOfBirth,yearOfDeath,description]
         # Create buttons
         cancelButton = Button(self, text="Cancel", command=self.destroy)
         cancelButton.grid(row=12,column=0,columnspan=2,padx=10,pady=5,ipadx=10,sticky="W")
-        clearButton = Button(self, text="Clear")
+        clearButton = Button(self, text="Clear", command= self.delete)
         clearButton.grid(row=12,column=1,columnspan=2,pady=5,ipadx=10,sticky="W")
-        submitButton = Button(self, text="Submit")
+        submitButton = Button(self, text="Submit", command=dbsql.insert_db(dbsql.con, "author", insert))
         submitButton.grid(row=12,column=0,columnspan=2,padx=10,pady=20,ipadx=20,sticky="E")
 
     def render(self):

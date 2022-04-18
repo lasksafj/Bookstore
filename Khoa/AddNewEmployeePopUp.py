@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
+import dbsql
 
 class AddNewEmployee(tk.Tk):
     def __init__(self):
@@ -39,6 +40,7 @@ class AddNewEmployee(tk.Tk):
 
 
     def showTextbox(self):
+        global lastName,firstName,address,apartment,city,state,zipCode,phone,email,dateOfBirth,position
         # Create text boxes
         lastName = Entry(self, width=40)
         firstName = Entry(self, width=40)
@@ -65,13 +67,27 @@ class AddNewEmployee(tk.Tk):
         dateOfBirth.grid(row=10,column=1)
         position.grid(row=11,column=1)
 
+    def delete(self):
+        lastName.delete(0, END)
+        firstName.delete(0, END)
+        address.delete(0, END)
+        apartment.delete(0, END)
+        city.delete(0, END)
+        state.delete(0, END)
+        zipCode.delete(0, END)
+        phone.delete(0, END)
+        email.delete(0, END)
+        dateOfBirth.delete(0, END)
+        position.delete(0, END)
+
     def showButton(self):
+        insert = [lastName,firstName,address,apartment,city,state,zipCode,phone,email,dateOfBirth,position]
         # Create buttons
         cancelButton = Button(self, text="Cancel", command=self.destroy)
         cancelButton.grid(row=12,column=0,columnspan=2,padx=10,pady=5,ipadx=10,sticky="W")
-        clearButton = Button(self, text="Clear")
+        clearButton = Button(self, text="Clear", command=self.delete)
         clearButton.grid(row=12,column=1,columnspan=2,pady=5,ipadx=10,sticky="W")
-        submitButton = Button(self, text="Submit")
+        submitButton = Button(self, text="Submit", command=dbsql.insert_db(dbsql.con, "employee", insert))
         submitButton.grid(row=12,column=0,columnspan=2,padx=10,pady=20,ipadx=20,sticky="E")
 
     def render(self):
