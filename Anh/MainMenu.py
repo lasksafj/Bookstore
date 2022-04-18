@@ -7,7 +7,6 @@ class MainMenu(tk.Frame):
     def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
         self.controller = controller
-        self.controller.title("Bookstore")
         self.render()
 
     def render(self):
