@@ -102,7 +102,7 @@ def delete_db(con, table_name:str, id_list:list) -> None:
         print(str(e))
 
 # --------------------------------------------------
-<<<<<<< Updated upstream
+
 # con = create_connection("bookstore.db")
 #
 # insert = {
@@ -112,8 +112,8 @@ def delete_db(con, table_name:str, id_list:list) -> None:
 # }
 #
 # insert_db(con, "author", insert)
-=======
-con = create_connection("bookstore.db")
+
+# con = create_connection("bookstore.db")
 
 # insert = ['2222harr',
 #         'Harry Potter 7','JK Rowling',
@@ -122,7 +122,7 @@ con = create_connection("bookstore.db")
 #         'fiction', '1-1-2000', 'n/a', 'n/a']
 #
 # insert_db(con, "books", insert)
->>>>>>> Stashed changes
+
 #
 # search = {
 #     'cost': 100,
