@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
 
-class AddNewCustomer(tk.Tk):
+class AddNewCustomer(tk.Frame):
     def __init__(self):
         super().__init__()
         self.title("Add New Customer")
