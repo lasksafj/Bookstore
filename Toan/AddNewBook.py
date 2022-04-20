@@ -1,16 +1,33 @@
 from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
+# from dbsql import * as db
+import dbsql as db
 
-class AddNewBook(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        self.title("Add New Book")
-        self.state("zoomed")
-        self.res = 0;
-        self.iconphoto(True, PhotoImage(file="logo.png"))
+
+class AddNewBook(tk.Frame):
+    def __init__(self, master, controller):
+        tk.Frame.__init__(self, master)
+        self.controller = controller
+        # self.render()
+        # ----
+        self.con = db.create_connection("../bookstore.db")
+        self.add()
+
+    # def add(self):
+    #     # data = ['1221harr',
+    #     #         'Harry Potter 3','JK Rowling',
+    #     #         'nxb',2000,2,
+    #     #         200,500,'new','available',
+    #     #         'fiction', '1-1-2000', 'n/a', 'n/a']
+    #     data = []
+    #     db.insert_db(self.con, 'books', data)
 
     def showLabel(self):
+        # Create Frame for list
+        self.frameList = LabelFrame(self, padx=10, pady=10)
+        self.frameList.pack(padx=10, pady=10)
+
         # Create text box label
         nameOfPage = Label(self, text="Add New Book")
         blank = Label(self, text="")
@@ -86,13 +103,18 @@ class AddNewBook(tk.Tk):
 
 
     def render(self):
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
+        tk.Label(self, text='Edit Customer', bg='red').grid(row=0, column=0)
         self.showLabel()
         self.showTextbox()
         self.showButton()
 
 
-
-if __name__ == "__main__":
-    app = AddNewBook()
-    app.render()
-    app.mainloop()
+root = tk.Tk()
+root.state('zoomed')
+app = AddNewBook(root, controller={})
+app.pack(fill="both", expand=True)
+app.render()
+app.mainloop()

@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
 
-class ModifyOption(tk.Tk):
+class ModifyOption(tk.Frame):
     def __init__(self):
         super().__init__()
         self.title("Modify Option")

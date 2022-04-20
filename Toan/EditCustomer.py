@@ -3,13 +3,11 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from tkinter import ttk
 
-class EditCustomer(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        self.title("Edit Customer")
-        self.state("zoomed")
-        self.res = 0;
-        self.iconphoto(True, PhotoImage(file="logo.png"))
+class EditCustomer(tk.Frame):
+    def __init__(self, master, controller):
+        tk.Frame.__init__(self, master)
+        self.controller = controller
+        # self.render()
 
     def createTable(self):
         table = ttk.Treeview(self)
@@ -117,9 +115,14 @@ class EditCustomer(tk.Tk):
         self.searchBox()
         self.showButton()
         #self.rightClick()
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
+        tk.Label(self, text='Edit Customer', bg='red').grid(row=0, column=0)
 
-if __name__ == "__main__":
-    app = EditCustomer()
-    app.render()
-    app.mainloop()
+root = tk.Tk()
+root.state('zoomed')
+app = EditCustomer(root, controller={})
+app.pack(fill="both", expand=True)
+app.render()
+app.mainloop()
