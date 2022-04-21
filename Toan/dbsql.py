@@ -20,18 +20,24 @@ def close_connection(con):
     """
     con.close()
 
-def insert_db(con, table_name:str, value:list) -> None:
+def insert_db(con, table_name:str, insert:dict) -> None:
     """ insert data to the database
     :con: connection
     :table_name: name of the table
-    :value: list of data needed to insert
+    :insert: data needed to insert
     """
 
-    query = "INSERT INTO " + table_name + " VALUES ({})".format(
-        ", ".join("?" * len(value)))
+    query = "INSERT INTO " + table_name + "("
+    value = tuple()
+    for field in insert:
+        query += field + ","
+        value = value + (insert[field],)
+    query = query[:-1] + ") VALUES({})".format(
+        ", ".join("?" * len(insert)))
+
     try:
         cur = con.cursor()
-        cur.execute(query, tuple(value))
+        cur.execute(query, value)
         con.commit()
     except Exception as e:
         print(str(e))
@@ -96,23 +102,33 @@ def delete_db(con, table_name:str, id_list:list) -> None:
         print(str(e))
 
 # --------------------------------------------------
-con = create_connection("bookstore.db")
+
+# con = create_connection("bookstore.db")
+#
+# insert = {
+#     'last_name': 'aaa',
+#     'first_name': 'bbb',
+#     'dob': 1/1/1990,
+# }
+#
+# insert_db(con, "author", insert)
+
+# con = create_connection("bookstore.db")
 
 # insert = ['2222harr',
 #         'Harry Potter 7','JK Rowling',
 #         'nxb',2000,2,
 #         200,500,'new','available',
 #         'fiction', '1-1-2000', 'n/a', 'n/a']
-# <<<<<<< Updated upstream
 #
-        
-# >>>>>>> Stashed changes
 # insert_db(con, "books", insert)
+
 #
 # search = {
 #     'cost': 100,
 # }
-# print(search_db(con, 'books', search))
+# a = search_db(con, 'books', search)
+# print(a[0][1])
 #
 
 # update = {
@@ -126,4 +142,4 @@ con = create_connection("bookstore.db")
 # id_list = ["1156lord", "1334lord"]
 # delete_db(con, "books", id_list)
 
-con.close()
+# con.close()
