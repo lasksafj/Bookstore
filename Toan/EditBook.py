@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from tkinter import ttk
 from turtle import width
 import dbsql as db
-import PopUpAddBook
+# import PopUpAddBook
 
 class EditBook(tk.Frame):
 
@@ -38,17 +38,11 @@ class EditBook(tk.Frame):
         self.frame2.grid(row=3, column=1, columnspan=22, sticky="e")
         # Search box and Add button
         self.searchBox = Entry(self.frame2, width=50,fg="blue", borderwidth=3)
-        self.addButton = Button(self.frame2, text="Add New Book", command=openPopUpAddBook, width=20)
+        self.addButton = Button(self.frame2, text="Add New Book", width=20)
 
         # Show search box and Add button
         self.searchBox.grid(row=1, column=3, sticky="e")
         self.addButton.grid(row=1, column=4, sticky="e")
-
-    def openPopUpAddBook():
-
-        top = Toplevel()
-        top.title("Add New Book")
-
 
     def createTable(self):
         # Create Frame for list

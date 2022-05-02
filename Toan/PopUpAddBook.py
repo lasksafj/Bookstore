@@ -12,20 +12,10 @@ class AddNewBook(tk.Frame):
         # self.render()
         # ----
         self.con = db.create_connection("../bookstore.db")
-        #self.add()
 
-    # def add(self):
-    #     # data = ['1221harr',
-    #     #         'Harry Potter 3','JK Rowling',
-    #     #         'nxb',2000,2,
-    #     #         200,500,'new','available',
-    #     #         'fiction', '1-1-2000', 'n/a', 'n/a']
-    #     data = []
-    #     db.insert_db(self.con, 'books', data)
-
-    def showLabel(self):
+    def popup(self):
         # Create Frame for list
-        self.frame1 = Frame(self, padx=10, pady=10)
+        self.frame1 = Frame(self)
         self.frame1.grid(row=1, column=0, padx=10, pady=10)
 
         # Create text box label
@@ -61,7 +51,7 @@ class AddNewBook(tk.Frame):
         dateIn.grid(row=13, column=0, sticky="w", padx=10)
         dateOut.grid(row=14, column=0, sticky="w", padx=10)
 
-    def showTextbox(self):
+    # def showTextbox(self):
         # Create text box entry
         bookID = Entry(self, width=50, fg="blue", borderwidth=3, state=DISABLED)
         title = Entry(self, width=50, fg="blue", borderwidth=3)
@@ -92,28 +82,43 @@ class AddNewBook(tk.Frame):
 
         # Insert comment for entry
         title.insert(4, "Enter title of book")
-    def showButton(self):
+
+    # def showButton(self):
+        data = []
         # Create button
-        cancelButton = Button(self, text="Cancel", pady=5)
-        saveButton = Button(self, text="Save", padx=10, pady=5)
+        clearButton = Button(self, text="Clear", pady=5, command=self.clear)
+        saveButton = Button(self, text="Save", padx=10, pady=5, command=db.insert_db(self.con, "books", data))
 
         # Shhow button onto the screen
-        cancelButton.grid(row=15, column=1, sticky="e", ipadx=10, padx=50)
+        clearButton.grid(row=15, column=1, sticky="e", ipadx=10, padx=50)
         saveButton.grid(row=15, column=1, sticky="e")
+
+    def clear():
+        # global bookID, title, author, publisher, publicationDate, edition, cost, suggestRetailPrice, condition, dateIn, dateOut
+        bookID.delete(0, END)
+        title.delete(0, END)
+        author.delete(0, END)
+        publisher.delete(0, END)
+        publicationDate.delete(0, END)
+        edition.delete(0, END)
+        cost.delete(0, END)
+        suggestRetailPrice.delete(0, END)
+        condition.delete(0, END)
+        sold.delete(0, END)
+        dateIn.delete(0, END)
+        dateOut.delete(0, END)
+
+
 
 
     def render(self):
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-
-        tk.Label(self, text='Edit Customer', bg='red').grid(row=0, column=0)
-        self.showLabel()
-        self.showTextbox()
-        self.showButton()
+        self.popup()
+        # self.showTextbox()
+        # self.showButton()
 
 
 root = tk.Tk()
-root.state('zoomed')
+root.geometry("480x480")
 app = AddNewBook(root, controller={})
 app.pack(fill="both", expand=True)
 app.render()
