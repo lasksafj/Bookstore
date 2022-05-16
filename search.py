@@ -65,13 +65,13 @@ class Search(tk.Tk):
         self.year_box = tk.Entry(self, width=40)
         self.year_box.grid(row=5, column=1, pady=10)
 
-        self.condition_box = ttk.Combobox(self, values=["Choose", "New", "Good", "Bad"], width=37)
+        self.condition_box = ttk.Combobox(self, state="readonly", values=["Choose", "New", "Good", "Bad"], width=37)
         self.condition_box.current(0)
         self.condition_box.grid(row=6, column=1, pady=10)
-        self.category_box = ttk.Combobox(self, values=["Choose", "Science", "Fiction", "Novel"], width=37)
+        self.category_box = ttk.Combobox(self, state="readonly",values=["Choose", "Science", "Fiction", "Novel"], width=37)
         self.category_box.current(0)
         self.category_box.grid(row=7, column=1, pady=10)
-        self.status_box = ttk.Combobox(self, values=["Choose", "Available", "Sold"], width=37)
+        self.status_box = ttk.Combobox(self, state="readonly",values=["Choose", "Available", "Sold"], width=37)
         self.status_box.current(0)
         self.status_box.grid(row=8, column=1, pady=10)
 
