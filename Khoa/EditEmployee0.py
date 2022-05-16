@@ -10,7 +10,7 @@ class EditEmployee(tk.Tk):
         super().__init__()
         self.title("Edit Employee")
         self.state("zoomed")
-        self.res = 0;
+        self.res = 0
         self.iconphoto(True, PhotoImage(file="logo.png"))
 
     def createTable(self):

@@ -1,7 +1,9 @@
 from tkinter import *
+from tkinter.ttk import *
 import tkinter as tk
 from PIL import Image, ImageTk
 from tkinter import ttk
+import AddNewAuthorPopUp
 
 class EditAuthor(tk.Tk):
 
@@ -10,7 +12,7 @@ class EditAuthor(tk.Tk):
         super().__init__()
         self.title("Edit Author")
         self.state("zoomed")
-        self.res = 0;
+        self.res = 0
         self.iconphoto(True, PhotoImage(file="logo.png"))
 
     def createTable(self):
@@ -59,11 +61,15 @@ class EditAuthor(tk.Tk):
         employeeButton.grid(row=3, column=0, sticky="e", padx=70)
         authorButton.grid(row=3, column=0, sticky="e")
 
-    def searchBox(self):
+    #def searchBox(self):
         # Search box
-        searchBox = Entry(self, width=50,fg="blue", borderwidth=3)
-        searchBox.grid(row=6, column=0, sticky="e", ipadx=10, padx=120)
-
+        #searchBox = Entry(self, width=50,fg="blue", borderwidth=3)
+        #searchBox.grid(row=6, column=0, sticky="e", ipadx=10, padx=120)
+    
+    def open_window():
+        window = AddNewAuthor(self)
+        window.grab_set()
+    
     def showButton(self):
         # Create button
         addButton = Button(self, text="Add New Author", padx=10, pady=5)

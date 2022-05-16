@@ -1,11 +1,12 @@
-from tkinter import *
 import tkinter as tk
+from tkinter import *
+from tkinter.ttk import *
 from PIL import Image, ImageTk
 import dbsql
 
-class AddNewAuthor(tk.Tk):
-    def __init__(self):
-        super().__init__()
+class AddNewAuthor(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
         self.resizable(0, 0)  # Lock screen
         self.title("Add New Author")
         self.geometry("420x480")
@@ -31,7 +32,7 @@ class AddNewAuthor(tk.Tk):
 
     def showTextbox(self):
         # Create text boxes
-        #global IDNumber,lastName,firstName,yearOfBirth,yearOfDeath,description
+        global IDNumber,lastName,firstName,yearOfBirth,yearOfDeath,description
         IDNumber = Entry(self, width=40)
         lastName = Entry(self, width=40)
         firstName = Entry(self, width=40)
