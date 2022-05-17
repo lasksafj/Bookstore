@@ -1,8 +1,11 @@
 import tkinter as tk
 from tkinter import font as tkfont
+import dbsql as db
 
 from Anh.MainMenu import MainMenu
 from Anh.CreateAccount import CreateAccount
+from Nhap.list_book import ListBook
+from Nhap.draft import OrderDetail
 
 class SampleApp(tk.Tk):
 
@@ -13,7 +16,12 @@ class SampleApp(tk.Tk):
         self.state("zoomed")
 
         # store
-        self.store = kwargs['login_info']
+        self.store = {}
+        self.store['login'] = kwargs['login_info']
+
+        # database
+        self.db = db
+        self.con = db.create_connection('bookstore.db')
 
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
@@ -21,7 +29,7 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (MainMenu, CreateAccount):
+        for F in (MainMenu, CreateAccount, ListBook, OrderDetail):
             page_name = F.__name__
             frame = F(master=container, controller=self)
             self.frames[page_name] = frame

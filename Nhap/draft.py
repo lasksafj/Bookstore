@@ -7,10 +7,11 @@ import collections
 
 class OrderDetail(tk.Frame):
 
-    def __init__(self, master):
+    def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
-        # self.controller = controller
-  
+        self.controller = controller
+        # self.render()
+        
     def render(self):
         '''Create the grid of window with 20rows and 25 columns'''
         for i in range(20):
@@ -28,12 +29,18 @@ class OrderDetail(tk.Frame):
         chosen_book = tk.Label(self, text="Chosen Books", font=(self.font_size, 15, 'underline'))
         chosen_book.grid(row=2, column=1)
 
-        
-        final_list = self.get_iD(self.handle_data(book_list), data)
+        search = {
+            'status': 'Available'
+        }
+        data = self.controller.db.search_db(self.controller.con, 'books', search)
+        print('data', data)
+        final_list = self.get_iD(self.handle_data(self.controller.store['cart_tree']), data)
+        print('final', final_list)
         self.shopping_cart(final_list)
     
 
     def handle_data(self, book_list):
+        print('booooooook', book_list)
         current_list = list()
         for i in book_list:
             x = list(i)
@@ -43,7 +50,6 @@ class OrderDetail(tk.Frame):
             for j in range(int(z)):
                 temp = list(x)
                 current_list.append(temp)
-        
         return current_list
 
     def remove_book(self, index, final_list):
@@ -51,18 +57,21 @@ class OrderDetail(tk.Frame):
         print(final_list)
 
     def get_iD(self, current_list, data):
+        print('data.......', data)
         iD_list = list()
+        print('current lisstsss', current_list)
 
         for i in current_list:
             for j in data:
                 check = set(i).issubset(j)
+                print(check)
                 if check == True and j[0] not in iD_list:
                     iD_list.append(j[0])
                     break
 
         for i in range(len(iD_list)):
             current_list[i].insert(0, iD_list[i])
-
+        print('current_list', current_list)
         return current_list
 
 
@@ -101,10 +110,11 @@ class OrderDetail(tk.Frame):
         num_label.grid(row=0, column=8)
 
         # index = 1
-        total_price = 0
+        total_price = 0.0
         for index, i in enumerate(final_list):
             num = 0
             index += 1
+            print('asdasdasd', i)
             total_price += float(i[6])
             for x in i:
                 order_label = tk.Label(window_frame, text=x)
@@ -131,40 +141,40 @@ class OrderDetail(tk.Frame):
 
 
     
-data = [
-            ('AUST1234', 'Poor Dad Rich Dad', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1235', 'Harry Porter', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1236', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST1237', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1238', 'Love', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1239', 'Captain American', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST0234', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST1834', 'Iron Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1241', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST1842', 'Spider Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1243', 'Doctor Strange', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1244', 'Super Man', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1245', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST0266', 'One Punch Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1856', 'Naruto', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1209', 'Advenger', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....')
-        ]
+# data = [
+#             ('AUST1234', 'Poor Dad Rich Dad', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+#             ('AUST1235', 'Harry Porter', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+#             ('AUST1236', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+#             ('AUST1237', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+#             ('AUST1238', 'Love', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+#             ('AUST1239', 'Captain American', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+#             ('AUST0234', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+#             ('AUST1834', 'Iron Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+#             ('AUST1241', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+#             ('AUST1842', 'Spider Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+#             ('AUST1243', 'Doctor Strange', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+#             ('AUST1244', 'Super Man', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+#             ('AUST1245', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+#             ('AUST0266', 'One Punch Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+#             ('AUST1856', 'Naruto', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+#             ('AUST1209', 'Advenger', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....')
+#         ]
 
 
-book_list = [
-            ('Poor Dad Rich Dad', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '1'), 
-            ('Harry Porter', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '1'), 
-            ('Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '2'), 
-            ('Love', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '1'), 
-            ('Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '2')
-            ]
+# book_list = [
+#             ('Poor Dad Rich Dad', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '1'), 
+#             ('Harry Porter', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '1'), 
+#             ('Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '2'), 
+#             ('Love', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '1'), 
+#             ('Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction', '2')
+#             ]
 
 
+if __name__ == '__main__':
+    root = tk.Tk()
+    root.state('zoomed')
+    app = OrderDetail(root)
+    app.render()
+    app.pack(fill="both", expand=True)
 
-root = tk.Tk()
-root.state('zoomed')
-app = OrderDetail(root)
-app.render()
-app.pack(fill="both", expand=True)
-
-app.mainloop()
+    app.mainloop()

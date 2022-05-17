@@ -49,7 +49,7 @@ def search_db(con, table_name:str, search:dict) -> list:
     :search: data to search
     :return: list of data found
     """
-
+    result = 'error'
     query = "SELECT * from " + table_name + " WHERE "
     value = tuple()
     for field in search:

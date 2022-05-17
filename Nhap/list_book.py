@@ -8,11 +8,13 @@ from unicodedata import numeric
 
 class ListBook(tk.Frame):
 
-    def __init__(self, master):
+    def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
-        # self.controller = controller
+        self.controller = controller
+        self.master = master
         self.temp_list = list()
         self.temp_list2 = list()
+        # self.render()
   
     def render(self):
         '''Create the grid of window with 20rows and 25 columns'''
@@ -30,7 +32,8 @@ class ListBook(tk.Frame):
 
         self.count = 0
         self.index= 0
-        self.data = self.handle_data()
+        origin = self.origin_data()
+        self.data = self.handle_data(origin)
         self.style_tree()
         self.list_book(self.data)
         self.button_book()
@@ -87,26 +90,34 @@ class ListBook(tk.Frame):
         self.style.map('Treeview',
                 background=[('selected', '#347083')]
         )
+    def origin_data(self):
+        search = {
+            'status': 'Available'
+        }
+        data = self.controller.db.search_db(self.controller.con, 'books', search)
+        return data
 
-    def handle_data(self):
-        data = [
-            ('AUST1234', 'Poor Dad Rich Dad', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1235', 'Harry Porter', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1236', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST1237', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1238', 'Love', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1239', 'Captain American', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST0234', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST1834', 'Iron Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
-            ('AUST1241', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
-            ('AUST1842', 'Spider Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1243', 'Doctor Strange', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1244', 'Super Man', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1245', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST0266', 'One Punch Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1856', 'Naruto', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
-            ('AUST1209', 'Advenger', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....')
-        ]
+    def handle_data(self, data):
+        # data = [
+        #     ('AUST1234', 'Poor Dad Rich Dad', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+        #     ('AUST1235', 'Harry Porter', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+        #     ('AUST1236', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+        #     ('AUST1237', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+        #     ('AUST1238', 'Love', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+        #     ('AUST1239', 'Captain American', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+        #     ('AUST0234', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+        #     ('AUST1834', 'Iron Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....'),
+        #     ('AUST1241', 'Dragon Balls', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction', '....'),
+        #     ('AUST1842', 'Spider Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+        #     ('AUST1243', 'Doctor Strange', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+        #     ('AUST1244', 'Super Man', 'Jane Austen (101)', 'N/A', '1812', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+        #     ('AUST1245', 'Sense and Sensibility', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+        #     ('AUST0266', 'One Punch Man', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+        #     ('AUST1856', 'Naruto', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Available', 'Fiction','....'),
+        #     ('AUST1209', 'Advenger', 'Jane Austen (101)', 'N/A', '1811', '1', '3000', '5900', 'Good', 'Sold', 'Fiction','....')
+        # ]
+
+        
 
         self.current_data = list()
         for row in data:
@@ -199,33 +210,46 @@ class ListBook(tk.Frame):
         self.remove_box.insert(0, 1)
         
     def clear_all(self):
-        num_list = self.list_tree.get_children()
-        num_cart = self.cart_tree.get_children()
-        draft_list = list()
-        draft_cart = list()
-        num_list1 = list()
-        num_list2 = list()
+        # num_list = self.list_tree.get_children()
+        # num_cart = self.cart_tree.get_children()
+        # draft_list = list()
+        # draft_cart = list()
+        # num_list1 = list()
+        # num_list2 = list()
         
-        for i in num_list:
-            num_list1.append(list(self.list_tree.item(i, 'value')))
-            draft_list.append(tuple(list(self.list_tree.item(i, 'value')[0:10])))
-        print(draft_list)
-        for i in num_cart:
-            num_list2.append(list(self.cart_tree.item(i, 'value'))[10])
-            draft_cart.append(tuple(list(self.cart_tree.item(i, 'value')[0:10])))
+        # for i in num_list:
+        #     num_list1.append(list(self.list_tree.item(i, 'value')))
+        #     draft_list.append(tuple(list(self.list_tree.item(i, 'value')[0:10])))
 
-        x = 0
-        for i in draft_cart:
-            index_cart = draft_list.index(i)
-            self.list_tree.item(index_cart, text="", values=(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], int(num_list1[index_cart][10]) + int(num_list2[x])))
-            x+=1
+        # for i in num_cart:
+        #     num_list2.append(list(self.cart_tree.item(i, 'value'))[10])
+        #     draft_cart.append(tuple(list(self.cart_tree.item(i, 'value')[0:10])))
+
+        # x = 0
+        # for i in draft_cart:
+        #     index_cart = draft_list.index(i)
+        #     self.list_tree.item(index_cart, text="", values=(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], int(num_list1[index_cart][10]) + int(num_list2[x])))
+        #     x+=1
+
+        # for item in self.cart_tree.get_children():
+        #     self.cart_tree.delete(item)
+
+        for item in self.list_tree.get_children():
+            self.list_tree.delete(item)
 
         for item in self.cart_tree.get_children():
             self.cart_tree.delete(item)
+
+        fresh_data =  self.origin_data()
+        for record in self.handle_data(fresh_data):
+            if self.count % 2 == 0:
+                self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='evenrow')
+            else:
+                self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='oddrow')
+            self.count+=1
+
         self.temp_list.clear()
 
-    def search_button(self):
-        pass
 
     def clear_field(self):
         self.title_box.delete(0, tk.END)
@@ -282,11 +306,45 @@ class ListBook(tk.Frame):
         self.status_box.grid(row=8, column=1, pady=10)
 
         #Create Buttons
-        search_button = tk.Button(self.window_s, text="Search...", width=15, command=self.search_button)
+        search_button = tk.Button(self.window_s, text="Search...", width=15, command=self.search_book)
         search_button.grid(row=9, column=0)
 
         delete_button = tk.Button(self.window_s, text="Clear Fields", command=self.clear_field)
         delete_button.grid(row=9, column=1)
+
+        
+
+    def search_book(self):
+        search = {
+            'status': 'Available'
+        }
+        if self.title_box.get() != '':
+            search['title'] = self.title_box.get()
+        if self.author_box.get() != '':
+            search['author'] = self.author_box.get()
+        if self.year_box.get() != '':
+            search['year'] = self.year_box.get()
+        if self.condition_box.get() != 'Choose':
+            search['condition'] = self.condition_box.get()
+        if self.category_box.get() != 'Choose':
+            search['category'] = self.category_box.get()
+        
+        print('search........', search)
+        
+        data = self.controller.db.search_db(self.controller.con, 'books', search)
+        print('dataaaaaa', data)
+        for item in self.list_tree.get_children():
+            self.list_tree.delete(item)
+        
+        for record in self.handle_data(data):
+            if self.count % 2 == 0:
+                self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='evenrow')
+            else:
+                self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='oddrow')
+            self.count+=1
+        
+        self.window_s.destroy()
+
 
     def list_book(self, book_list):
         #Create List Frame
@@ -353,7 +411,7 @@ class ListBook(tk.Frame):
         self.frame2 = tk.LabelFrame(self, text="Buttons...", padx=10, pady=5)
         self.frame2.grid(row=8, column=1, columnspan=22)
 
-        self.backBtn = tk.Button(self.frame2, text="<<", pady=20)
+        self.backBtn = tk.Button(self.frame2, text="<<", pady=20, command=self.back)
         self.backBtn.grid(row=0, column=0, rowspan=4, padx= 50, sticky=tk.W)
 
         self.search_button = tk.Button(self.frame2, text='Search', padx=50, command=self.search_window)
@@ -382,8 +440,26 @@ class ListBook(tk.Frame):
         self.clear_all = tk.Button(self.frame2, text='Clear All', command=self.clear_all)
         self.clear_all.grid(row=1, column=6, padx=40, pady=10)
 
-        self.order_button = tk.Button(self.frame2, text='Create Order', padx=50)
+        self.order_button = tk.Button(self.frame2, text='Create Order', padx=50, command=self.create_order)
         self.order_button.grid(row=3, column=1, columnspan=4)
+
+    def back(self):
+        self.controller.show_frame('MainMenu')
+
+    def create_order(self):
+        num_cart = self.cart_tree.get_children()
+        self.cart_tree1 = list()
+        for i in num_cart:
+            temp = list(self.cart_tree.item(i, 'value'))
+            temp[3] = int(temp[3])
+            temp[5] = float(temp[5])
+            temp[6] = float(temp[6])
+            self.cart_tree1.append(tuple(temp))
+        print('ysifsfhs', self.cart_tree1)
+
+        self.controller.store['cart_tree'] = self.cart_tree1
+
+        self.controller.show_frame('OrderDetail')
 
     def cart_book(self):
         #Create List Frame
@@ -438,11 +514,11 @@ class ListBook(tk.Frame):
 
         self.cart_tree.bind('<Double-1>', self.doubleClick2)
 
-       
-root = tk.Tk()
-root.state('zoomed')
-app = ListBook(root)
-app.render()
-app.pack(fill="both", expand=True)
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.state('zoomed')
+    app = ListBook(root)
+    app.render()
+    app.pack(fill="both", expand=True)
 
-app.mainloop()
+    app.mainloop()
