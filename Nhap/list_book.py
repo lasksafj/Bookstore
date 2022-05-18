@@ -167,6 +167,7 @@ class ListBook(tk.Frame):
             self.notice_label.config(text='This is NOT a number. Please, enter numbers!')
 
     def remove_book(self):
+        
         self.notice_label.config(text="")
         num_list = self.list_tree.get_children()
         temp = list()
@@ -202,7 +203,7 @@ class ListBook(tk.Frame):
                 self.list_tree.item(temp_index, text="", values=(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], int(temp[temp_index][10]) + int(self.remove_box.get())))
                 self.cart_tree.item(int(selects), text="", values=(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], int(x[10]) - int(self.remove_box.get())))
                 self.remove_box.delete(0, tk.END)
-                self.remove_box.insert(0, 1)
+            self.remove_box.insert(0, 1)
             
         except ValueError:
             self.notice_label.config(text='This is NOT a number. Please, enter numbers!')
@@ -315,6 +316,7 @@ class ListBook(tk.Frame):
         
 
     def search_book(self):
+        self.notice_label.config(text="")
         search = {
             'status': 'Available'
         }
@@ -329,19 +331,19 @@ class ListBook(tk.Frame):
         if self.category_box.get() != 'Choose':
             search['category'] = self.category_box.get()
         
-        print('search........', search)
-        
         data = self.controller.db.search_db(self.controller.con, 'books', search)
-        print('dataaaaaa', data)
-        for item in self.list_tree.get_children():
-            self.list_tree.delete(item)
-        
-        for record in self.handle_data(data):
-            if self.count % 2 == 0:
-                self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='evenrow')
-            else:
-                self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='oddrow')
-            self.count+=1
+        if len(data) == 0:
+            self.notice_label.config(text="There is no book")
+        else:
+            for item in self.list_tree.get_children():
+                self.list_tree.delete(item)
+            
+            for record in self.handle_data(data):
+                if self.count % 2 == 0:
+                    self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='evenrow')
+                else:
+                    self.list_tree.insert(parent='', index='end', iid=self.count, text='', values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6], record[7], record[8], record[9], record[10]), tags='oddrow')
+                self.count+=1
         
         self.window_s.destroy()
 

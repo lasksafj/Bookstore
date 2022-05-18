@@ -47,7 +47,7 @@ class MainMenu(tk.Frame):
         report_button.grid(row=2, column=1, sticky="NSEW", padx=10, pady=10)
 
     def search_and_order_button(self):
-        pass
+        self.controller.show_frame('ListBook')
 
     def create_account_button(self):
         # self.pack_forget()
